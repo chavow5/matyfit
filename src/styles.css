@@ -1197,12 +1197,9 @@ ul { list-style: none; }
    RESPONSIVE
    ============================================= */
 @media (max-width: 1024px) {
-  .sidebar { display: flex; width: 280px; position: fixed; top: var(--navbar-h); left: 0; height: calc(100vh - var(--navbar-h)); transform: translateX(-100%); z-index: 950; }
-  .sidebar.open { display: flex; transform: translateX(0); box-shadow: 10px 0 40px rgba(0, 0, 0, 0.35); }
+  .sidebar { display: none; }
   .main-content { margin-left: 0; }
-  .hero { padding: 3rem 2rem; min-height: auto; }
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .hero-actions a { width: 100%; justify-content: center; }
+  .hero { padding: 3rem 2rem; }
   #sobre-mi, #planes, #contacto { padding: 4rem 2rem; }
   .about-grid { grid-template-columns: 1fr; gap: 2rem; }
   .about-image-wrap { max-width: 400px; margin: 0 auto; }
@@ -1214,15 +1211,12 @@ ul { list-style: none; }
 
 @media (max-width: 640px) {
   :root { --navbar-h: 60px; }
-  .hero { padding: 2.5rem 1rem; }
-  .hero-stats { gap: 1rem; flex-direction: column; }
-  .hero-actions { gap: 0.75rem; }
-  .hero-title { font-size: 2.8rem; }
-  .section-header { text-align: left; }
-  .ejercicios-grid { grid-template-columns: 1fr; }
-  .about-grid { grid-template-columns: 1fr; }
-  .about-image-wrap { max-width: 100%; margin: 0 auto; }
-  .contacto-inner { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+  .ejercicios-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+  .hero-title { letter-spacing: -1px; }
+  .semana-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .about-features { grid-template-columns: 1fr; }
+  .modal-sets-grid { grid-template-columns: repeat(2, 1fr); }
   .footer { flex-direction: column; text-align: center; padding: 1.5rem; }
 }
 
@@ -1238,3 +1232,14 @@ ul { list-style: none; }
 
 .sidebar-overlay.open { display: block; }
 
+@media (max-width: 1024px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    display: flex;
+    transform: translateX(0);
+  }
+}
