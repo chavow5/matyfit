@@ -7,22 +7,22 @@
 /* ---- CSS Variables / Design Tokens ---- */
 :root {
   /* Colors */
-  --clr-bg:          #0a0c10;
-  --clr-bg-2:        #111318;
-  --clr-bg-3:        #181b22;
-  --clr-surface:     #1a1d25;
-  --clr-surface-2:   #20242e;
-  --clr-border:      rgba(255,255,255,0.07);
-  --clr-border-hover:rgba(0,230,200,0.3);
+  --clr-bg:          #000000;
+  --clr-bg-2:        #111111;
+  --clr-bg-3:        #1a1a1a;
+  --clr-surface:     #121212;
+  --clr-surface-2:   #1e1e1e;
+  --clr-border:      rgba(255,255,255,0.12);
+  --clr-border-hover:rgba(255,255,255,0.24);
 
-  --clr-cyan:        #00e6c8;
-  --clr-cyan-dark:   #00b39e;
-  --clr-cyan-glow:   rgba(0,230,200,0.15);
-  --clr-cyan-glow-lg:rgba(0,230,200,0.08);
+  --clr-cyan:        #ffffff;
+  --clr-cyan-dark:   #f2f2f2;
+  --clr-cyan-glow:   rgba(255,255,255,0.1);
+  --clr-cyan-glow-lg:rgba(255,255,255,0.06);
 
-  --clr-text:        #f0f2f5;
-  --clr-text-muted:  #8892a4;
-  --clr-text-dim:    #4a5568;
+  --clr-text:        #ffffff;
+  --clr-text-muted:  #d1d5db;
+  --clr-text-dim:    #9ca3af;
 
   /* Typography */
   --font-display: 'Outfit', sans-serif;
@@ -37,10 +37,10 @@
   --radius-xl:    28px;
 
   /* Shadows */
-  --shadow-sm:    0 2px 8px rgba(0,0,0,0.3);
-  --shadow-md:    0 4px 20px rgba(0,0,0,0.4);
-  --shadow-lg:    0 8px 40px rgba(0,0,0,0.5);
-  --shadow-cyan:  0 0 30px rgba(0,230,200,0.2);
+  --shadow-sm:    0 2px 8px rgba(0,0,0,0.35);
+  --shadow-md:    0 6px 20px rgba(0,0,0,0.4);
+  --shadow-lg:    0 10px 30px rgba(0,0,0,0.45);
+  --shadow-cyan:  0 0 20px rgba(255,255,255,0.08);
 
   /* Transitions */
   --transition:   all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -114,10 +114,10 @@ ul { list-style: none; }
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #fff 30%, var(--clr-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--clr-text);
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
   letter-spacing: -0.5px;
 }
 
@@ -320,13 +320,7 @@ ul { list-style: none; }
 .hero-bg-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    105deg,
-    var(--clr-bg) 0%,
-    var(--clr-bg) 35%,
-    rgba(10,12,16,0.75) 60%,
-    rgba(10,12,16,0.4) 100%
-  );
+  background: var(--clr-bg);
 }
 
 .hero-bg-radial {
@@ -334,7 +328,7 @@ ul { list-style: none; }
   top: -20%;
   right: 10%;
   width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(0,230,200,0.06) 0%, transparent 70%);
+  background: none;
   pointer-events: none;
 }
 
@@ -383,10 +377,10 @@ ul { list-style: none; }
 }
 
 .hero-title-gradient {
-  background: linear-gradient(135deg, var(--clr-cyan) 0%, #00b8a9 50%, #0080ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--clr-text);
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
 }
 
 .hero-subtitle {
@@ -538,7 +532,7 @@ ul { list-style: none; }
   position: absolute;
   inset: -2px;
   border-radius: var(--radius-xl);
-  background: linear-gradient(135deg, var(--clr-cyan), transparent 60%);
+  background: var(--clr-surface);
   z-index: 0;
 }
 
@@ -1185,7 +1179,7 @@ ul { list-style: none; }
   top: var(--navbar-h);
   left: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--clr-cyan), #0080ff);
+  background: var(--clr-text);
   width: 0%;
   z-index: 999;
   transition: width 0.1s linear;
