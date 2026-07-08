@@ -1,4 +1,4 @@
-export default function Contact({ onSubmit }) {
+export default function Contact({ onSubmit, t }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit();
@@ -8,15 +8,15 @@ export default function Contact({ onSubmit }) {
   return (
     <section id="contacto" aria-labelledby="contacto-heading">
       <div className="section-header">
-        <span className="section-tag">Hablemos</span>
-        <h2 className="section-title" id="contacto-heading">¿Listo para empezar?</h2>
-        <p className="section-subtitle">Contactame y diseñamos tu plan personalizado</p>
+        <span className="section-tag">{t.contact_tag}</span>
+        <h2 className="section-title" id="contacto-heading">{t.contact_title}</h2>
+        <p className="section-subtitle">{t.contact_subtitle}</p>
       </div>
 
       <div className="contacto-inner">
         <div className="contacto-info">
-          <h3>Encontrame en</h3>
-          <p>Seguime en redes sociales para ver contenido diario de entrenamiento, nutrición y motivación.</p>
+          <h3>{t.contact_info_title}</h3>
+          <p>{t.contact_info_desc}</p>
 
           <div className="social-links" role="list">
             <a
@@ -38,14 +38,10 @@ export default function Contact({ onSubmit }) {
               aria-label="WhatsApp de Matifit"
             >
               <span className="social-icon">💬</span>
-              <span>WhatsApp directo</span>
+              <span>{t.contact_wa}</span>
               <span style={{ marginLeft: 'auto', color: 'var(--clr-text-dim)', fontSize: '0.8rem' }}>→</span>
             </a>
-            <a
-              href="mailto:matifit@gmail.com"
-              className="social-link"
-              aria-label="Email de Matifit"
-            >
+            <a href="mailto:matifit@gmail.com" className="social-link" aria-label="Email de Matifit">
               <span className="social-icon">✉️</span>
               <span>matifit@gmail.com</span>
               <span style={{ marginLeft: 'auto', color: 'var(--clr-text-dim)', fontSize: '0.8rem' }}>→</span>
@@ -56,22 +52,22 @@ export default function Contact({ onSubmit }) {
         <div>
           <form className="contacto-form" id="contact-form" onSubmit={handleSubmit} noValidate aria-label="Formulario de contacto">
             <div className="form-group">
-              <label htmlFor="form-nombre">Nombre</label>
-              <input type="text" id="form-nombre" name="nombre" placeholder="Tu nombre completo" required autoComplete="name" />
+              <label htmlFor="form-nombre">{t.form_name}</label>
+              <input type="text" id="form-nombre" name="nombre" placeholder={t.form_placeholder_name} required autoComplete="name" />
             </div>
             <div className="form-group">
-              <label htmlFor="form-email">Email</label>
-              <input type="email" id="form-email" name="email" placeholder="tu@email.com" required autoComplete="email" />
+              <label htmlFor="form-email">{t.form_email}</label>
+              <input type="email" id="form-email" name="email" placeholder={t.form_placeholder_email} required autoComplete="email" />
             </div>
             <div className="form-group">
-              <label htmlFor="form-objetivo">Objetivo</label>
-              <input type="text" id="form-objetivo" name="objetivo" placeholder="¿Qué querés lograr?" />
+              <label htmlFor="form-objetivo">{t.form_goal}</label>
+              <input type="text" id="form-objetivo" name="objetivo" placeholder={t.form_placeholder_goal} />
             </div>
             <div className="form-group">
-              <label htmlFor="form-mensaje">Mensaje</label>
-              <textarea id="form-mensaje" name="mensaje" rows="4" placeholder="Contame más sobre vos y tus metas..." />
+              <label htmlFor="form-mensaje">{t.form_message}</label>
+              <textarea id="form-mensaje" name="mensaje" rows="4" placeholder={t.form_placeholder_message} />
             </div>
-            <button type="submit" className="btn-submit">Enviar mensaje 🚀</button>
+            <button type="submit" className="btn-submit">{t.form_submit}</button>
           </form>
         </div>
       </div>

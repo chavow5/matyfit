@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function Footer({ t }) {
   return (
     <footer className="footer" role="contentinfo">
       <div className="footer-brand">
@@ -11,8 +11,8 @@ export default function Footer() {
           MATI<span className="footer-brand-cyan">FIT</span>
         </span>
       </div>
-      <p className="footer-copy">© 2026 Matifit. Todos los derechos reservados.</p>
-      <p className="footer-copy">Hecho con 💪 por Matías García</p>
+      <p className="footer-copy">{t.footer_copy}</p>
+      <p className="footer-copy">{t.footer_by}</p>
     </footer>
   );
 }

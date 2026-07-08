@@ -3,19 +3,22 @@ function getDifficultyClass(dificultad) {
     Facil: 'badge-facil',
     Intermedio: 'badge-intermedio',
     Avanzado: 'badge-avanzado',
-    Cardio: 'badge-intermedio'
+    Cardio: 'badge-intermedio',
+    Easy: 'badge-facil',
+    Intermediate: 'badge-intermedio',
+    Advanced: 'badge-avanzado'
   };
   return map[dificultad] || 'badge-intermedio';
 }
 
-function EjercicioCard({ ejercicio, isHidden, onOpenModal }) {
+function EjercicioCard({ ejercicio, isHidden, onOpenModal, t }) {
   return (
     <div
       className={`ejercicio-card ${isHidden ? 'hidden-card' : ''}`}
       onClick={() => onOpenModal(ejercicio.id)}
       role="button"
       tabIndex={0}
-      aria-label={`Ver detalles de ${ejercicio.nombre}`}
+      aria-label={`${t.view_details} ${ejercicio.nombre}`}
       onKeyDown={(event) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
@@ -35,23 +38,23 @@ function EjercicioCard({ ejercicio, isHidden, onOpenModal }) {
         <h4 className="ejercicio-name">{ejercicio.nombre}</h4>
         <p className="ejercicio-desc">{ejercicio.descripcion.slice(0, 80)}...</p>
         <div className="ejercicio-sets">
-          <span className="set-chip">{ejercicio.series} series</span>
-          <span className="set-chip">{ejercicio.repeticiones} reps</span>
-          <span className="set-chip">⏸ {ejercicio.descanso}</span>
+          <span className="set-chip">{ejercicio.series} {t.series}</span>
+          <span className="set-chip">{ejercicio.repeticiones} {t.reps}</span>
+          <span className="set-chip">⏸ {ejercicio.descanso} {t.rest}</span>
         </div>
       </div>
     </div>
   );
 }
 
-export default function Plans({ semanas, expandedWeeks, onToggleWeek, onOpenModal }) {
+export default function Plans({ semanas, expandedWeeks, onToggleWeek, onOpenModal, t }) {
   return (
     <section id="planes" aria-labelledby="planes-heading">
       <div className="section-header" style={{ textAlign: 'left', marginBottom: '2rem' }}>
-        <span className="section-tag">Contenido</span>
-        <h2 className="section-title" id="planes-heading">Planes de Entrenamiento</h2>
+        <span className="section-tag">{t.plans_tag}</span>
+        <h2 className="section-title" id="planes-heading">{t.plans_title}</h2>
         <p className="section-subtitle" style={{ margin: 0 }}>
-          Programas diseñados para todos los niveles, organizados semana a semana.
+          {t.plans_subtitle}
         </p>
       </div>
 
@@ -86,11 +89,11 @@ export default function Plans({ semanas, expandedWeeks, onToggleWeek, onOpenModa
                   >
                     {isExpanded ? (
                       <>
-                        Ocultar <span className="arrow" style={{ transform: 'rotate(180deg)' }}>▼</span>
+                        {t.hide} <span className="arrow" style={{ transform: 'rotate(180deg)' }}>▼</span>
                       </>
                     ) : (
                       <>
-                        Ver todo <span className="arrow">▼</span>
+                        {t.view_all} <span className="arrow">▼</span>
                       </>
                     )}
                   </button>
@@ -103,6 +106,7 @@ export default function Plans({ semanas, expandedWeeks, onToggleWeek, onOpenModa
                     ejercicio={ejercicio}
                     isHidden={!isExpanded && index >= 4}
                     onOpenModal={onOpenModal}
+                    t={t}
                   />
                 ))}
               </div>

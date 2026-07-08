@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { trainer, semanas } from './data';
+import { contentByLanguage, translations } from './data';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Hero from './components/Hero';
@@ -11,7 +11,10 @@ import Modal from './components/Modal';
 import Toast from './components/Toast';
 import ScrollProgress from './components/ScrollProgress';
 
-const allEjercicios = semanas.flatMap((semana) => semana.ejercicios);
+function getInitialLanguage() {
+  if (typeof window === 'undefined') return 'es';
+  return window.localStorage.getItem('lang') || 'es';
+}
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,6 +22,11 @@ function App() {
   const [expandedWeeks, setExpandedWeeks] = useState({});
   const [activeSection, setActiveSection] = useState('inicio');
   const [toastMessage, setToastMessage] = useState('');
+  const [language, setLanguage] = useState(getInitialLanguage);
+
+  const pageData = contentByLanguage[language];
+  const t = translations[language];
+  const allEjercicios = pageData.semanas.flatMap((semana) => semana.ejercicios);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,6 +79,12 @@ function App() {
     };
   }, [sidebarOpen]);
 
+  useEffect(() => {
+    window.localStorage.setItem('lang', language);
+    document.documentElement.lang = language;
+    document.documentElement.setAttribute('data-language', language);
+  }, [language]);
+
   const openModal = (id) => {
     const ejercicio = allEjercicios.find((item) => item.id === id);
     setModalEjercicio(ejercicio || null);
@@ -83,7 +97,7 @@ function App() {
   };
 
   const handleFormSubmit = () => {
-    setToastMessage('✅ Mensaje enviado. Te contactaremos pronto!');
+    setToastMessage(t.toast_success);
   };
 
   return (
@@ -93,6 +107,9 @@ function App() {
         activeSection={activeSection}
         isSidebarOpen={sidebarOpen}
         onOpenSidebar={() => setSidebarOpen((prev) => !prev)}
+        language={language}
+        onLanguageChange={setLanguage}
+        t={t}
       />
 
       <div
@@ -102,25 +119,27 @@ function App() {
       />
       <Sidebar
         open={sidebarOpen}
-        semanas={semanas}
+        semanas={pageData.semanas}
         activeSection={activeSection}
         onClose={() => setSidebarOpen(false)}
+        t={t}
       />
 
       <main className="main-content">
-        <Hero trainer={trainer} />
-        <About trainer={trainer} />
+        <Hero trainer={pageData.trainer} t={t} />
+        <About trainer={pageData.trainer} t={t} />
         <Plans
-          semanas={semanas}
+          semanas={pageData.semanas}
           expandedWeeks={expandedWeeks}
           onToggleWeek={toggleWeek}
           onOpenModal={openModal}
+          t={t}
         />
-        <Contact onSubmit={handleFormSubmit} />
-        <Footer />
+        <Contact onSubmit={handleFormSubmit} t={t} />
+        <Footer t={t} />
       </main>
 
-      <Modal ejercicio={modalEjercicio} onClose={closeModal} />
+      <Modal ejercicio={modalEjercicio} onClose={closeModal} t={t} />
       <Toast message={toastMessage} />
     </div>
   );

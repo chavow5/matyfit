@@ -1,10 +1,10 @@
-export default function About({ trainer }) {
+export default function About({ trainer, t }) {
   return (
     <section id="sobre-mi" aria-labelledby="sobre-heading">
       <div className="section-header">
-        <span className="section-tag">Mi historia</span>
-        <h2 className="section-title" id="sobre-heading">¿Quién soy?</h2>
-        <p className="section-subtitle">El entrenador que te acompaña en cada paso del camino</p>
+        <span className="section-tag">{t.about_tag}</span>
+        <h2 className="section-title" id="sobre-heading">{t.about_title}</h2>
+        <p className="section-subtitle">{t.about_subtitle}</p>
       </div>
 
       <div className="about-grid">
@@ -14,13 +14,13 @@ export default function About({ trainer }) {
             <span className="about-badge-icon">🏆</span>
             <div className="about-badge-text">
               <strong>5+</strong>
-              <span>Años de exp.</span>
+              <span>{t.about_badge}</span>
             </div>
           </div>
         </div>
 
         <div className="about-text">
-          <h3>Hola, soy Matías</h3>
+          <h3>{t.about_greeting}</h3>
           <p>{trainer.descripcion}</p>
           <p>{trainer.descripcion2}</p>
           <div className="about-features" role="list">

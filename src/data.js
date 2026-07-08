@@ -1,9 +1,9 @@
-export const trainer = {
+const esTrainer = {
   nombre: 'Matías',
   apellido: 'García',
   tag: 'Personal Trainer Certificado',
-  descripcion: 'Con más de 5 años de experiencia transformando vidas a través del fitness, me especializo en diseñar planes de entrenamiento personalizados que se adaptan a tus objetivos y estilo de vida.',
-  descripcion2: 'Mi metodología combina ciencia del ejercicio con motivación real. Cada plan está diseñado para maximizar resultados, minimizar lesiones y hacer que disfrutes el proceso.',
+  descripcion: 'Con más de 5 años de experiencia transformando vidas a través del fitness, diseñando planes personalizados que se adaptan a tus metas y estilo de vida.',
+  descripcion2: 'Mi metodología combina ciencia del ejercicio con motivación real para ayudarte a progresar con consistencia y sin perder el disfrute del proceso.',
   stats: [
     { numero: '150+', label: 'Clientes Activos' },
     { numero: '5+', label: 'Años Experiencia' },
@@ -17,7 +17,26 @@ export const trainer = {
   ]
 };
 
-export const semanas = [
+const enTrainer = {
+  nombre: 'Matías',
+  apellido: 'García',
+  tag: 'Certified Personal Trainer',
+  descripcion: 'With over 5 years of experience transforming lives through fitness, I design personalized plans that fit your goals and lifestyle.',
+  descripcion2: 'My methodology combines exercise science with real motivation so you can progress consistently and enjoy the process.',
+  stats: [
+    { numero: '150+', label: 'Active Clients' },
+    { numero: '5+', label: 'Years Experience' },
+    { numero: '98%', label: 'Satisfaction' }
+  ],
+  features: [
+    { icon: '🎯', titulo: 'Custom Plan', desc: 'Tailored to your goals' },
+    { icon: '📊', titulo: 'Real Tracking', desc: 'Measurable progress' },
+    { icon: '🏆', titulo: 'Certified', desc: 'NSCA & ACSM' },
+    { icon: '💬', titulo: '24/7 Support', desc: 'Always available' }
+  ]
+};
+
+const esSemanas = [
   {
     id: 1,
     titulo: 'Semana 1 — Base y Activación',
@@ -291,3 +310,124 @@ export const semanas = [
     ]
   }
 ];
+
+export const trainer = esTrainer;
+export const semanas = esSemanas;
+
+export const translations = {
+  es: {
+    nav_inicio: 'Inicio',
+    nav_sobre: 'Sobre mí',
+    nav_planes: 'Planes',
+    nav_contacto: 'Contacto',
+    nav_cta: 'Comenzar ahora →',
+    nav_aria_label: 'Navegación principal',
+    lang_label: 'Idioma',
+    hero_badge: 'Personal Trainer Certificado',
+    hero_title_line1: 'Entrená con',
+    hero_title_line2: 'Transforma tu vida',
+    hero_cta_primary: 'Ver planes 💪',
+    hero_cta_secondary: 'Conocerme mejor',
+    hero_stats_label: 'Estadísticas',
+    about_tag: 'Mi historia',
+    about_title: '¿Quién soy?',
+    about_subtitle: 'El entrenador que te acompaña en cada paso del camino',
+    about_badge: 'Años de exp.',
+    about_greeting: 'Hola, soy Matías',
+    plans_tag: 'Contenido',
+    plans_title: 'Planes de Entrenamiento',
+    plans_subtitle: 'Programas diseñados para todos los niveles, organizados semana a semana.',
+    view_all: 'Ver todo',
+    hide: 'Ocultar',
+    view_details: 'Ver detalles de',
+    series: 'series',
+    reps: 'reps',
+    rest: 'descanso',
+    contact_tag: 'Hablemos',
+    contact_title: '¿Listo para empezar?',
+    contact_subtitle: 'Contactame y diseñamos tu plan personalizado',
+    contact_info_title: 'Encontrame en',
+    contact_info_desc: 'Seguime en redes sociales para ver contenido diario de entrenamiento, nutrición y motivación.',
+    contact_wa: 'WhatsApp directo',
+    form_name: 'Nombre',
+    form_email: 'Email',
+    form_goal: 'Objetivo',
+    form_message: 'Mensaje',
+    form_placeholder_name: 'Tu nombre completo',
+    form_placeholder_email: 'tu@email.com',
+    form_placeholder_goal: '¿Qué querés lograr?',
+    form_placeholder_message: 'Contame más sobre vos y tus metas...',
+    form_submit: 'Enviar mensaje 🚀',
+    modal_series: 'Series',
+    modal_reps: 'Reps',
+    modal_rest: 'Descanso',
+    modal_close: 'Cerrar modal',
+    toast_success: '✅ Mensaje enviado. Te contactaremos pronto!',
+    sidebar_nav: 'Navegación',
+    sidebar_sections: 'Secciones',
+    sidebar_week: 'Semana',
+    aria_open_menu: 'Abrir menú de navegación',
+    footer_copy: '© 2026 Matifit. Todos los derechos reservados.',
+    footer_by: 'Hecho con 💪 por Matías García'
+  },
+  en: {
+    nav_inicio: 'Home',
+    nav_sobre: 'About me',
+    nav_planes: 'Plans',
+    nav_contacto: 'Contact',
+    nav_cta: 'Start now →',
+    nav_aria_label: 'Main navigation',
+    lang_label: 'Language',
+    hero_badge: 'Certified Personal Trainer',
+    hero_title_line1: 'Train with',
+    hero_title_line2: 'Transform your life',
+    hero_cta_primary: 'View plans 💪',
+    hero_cta_secondary: 'Know me better',
+    hero_stats_label: 'Statistics',
+    about_tag: 'My story',
+    about_title: 'About me',
+    about_subtitle: 'The trainer who guides you every step of the way',
+    about_badge: 'Years of exp.',
+    about_greeting: 'Hi, I am Matías',
+    plans_tag: 'Content',
+    plans_title: 'Training Plans',
+    plans_subtitle: 'Programs designed for every level, organized week by week.',
+    view_all: 'View all',
+    hide: 'Hide',
+    view_details: 'View details of',
+    series: 'sets',
+    reps: 'reps',
+    rest: 'rest',
+    contact_tag: "Let's talk",
+    contact_title: 'Ready to start?',
+    contact_subtitle: 'Contact me and we will design your personalized plan',
+    contact_info_title: 'Find me on',
+    contact_info_desc: 'Follow me on social media for daily training, nutrition and motivation content.',
+    contact_wa: 'Direct WhatsApp',
+    form_name: 'Name',
+    form_email: 'Email',
+    form_goal: 'Goal',
+    form_message: 'Message',
+    form_placeholder_name: 'Your full name',
+    form_placeholder_email: 'you@email.com',
+    form_placeholder_goal: 'What do you want to achieve?',
+    form_placeholder_message: 'Tell me more about you and your goals...',
+    form_submit: 'Send message 🚀',
+    modal_series: 'Sets',
+    modal_reps: 'Reps',
+    modal_rest: 'Rest',
+    modal_close: 'Close modal',
+    toast_success: '✅ Message sent. We will contact you soon!',
+    sidebar_nav: 'Navigation',
+    sidebar_sections: 'Sections',
+    sidebar_week: 'Week',
+    aria_open_menu: 'Open navigation menu',
+    footer_copy: '© 2026 Matifit. All rights reserved.',
+    footer_by: 'Made with 💪 by Matías García'
+  }
+};
+
+export const contentByLanguage = {
+  es: { trainer: esTrainer, semanas: esSemanas },
+  en: { trainer: enTrainer, semanas: esSemanas }
+};
