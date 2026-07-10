@@ -45,6 +45,10 @@ export default function Dashboard({ user, onLogout }) {
   // Toast
   const [toast, setToast]             = useState('');
 
+  const isAdmin = user?.user_metadata?.role === 'admin';
+  const currentDay = new Date().getDate();
+  const currentWeekOrden = Math.min(4, Math.ceil(currentDay / 7));
+
   useEffect(() => {
     fetchAll();
   }, []);
@@ -63,15 +67,26 @@ export default function Dashboard({ user, onLogout }) {
     ]);
     setSemanas(semanasData || []);
     setEjercicios(ejerciciosData || []);
-    if (semanasData?.length) setActiveWeek(semanasData[0].id);
+    if (semanasData?.length) {
+      const clientActiveWeek = semanasData.find(s => s.orden === currentWeekOrden) || semanasData[0];
+      setActiveWeek(isAdmin ? semanasData[0].id : clientActiveWeek.id);
+    }
     setLoading(false);
   }
 
   const ejerciciosDeSemana = (semanaId) =>
     ejercicios.filter((ej) => ej.semana_id === semanaId);
 
+  const getWeekStartDay = (orden) => {
+    if (orden === 1) return 1;
+    if (orden === 2) return 8;
+    if (orden === 3) return 15;
+    return 22;
+  };
+
   // ── Open modal ──
   const openCreate = () => {
+    if (!isAdmin) return;
     setForm({ ...EMPTY_EXERCISE, semana_id: activeWeek || '' });
     setEditMode(false);
     setModalError('');
@@ -79,6 +94,7 @@ export default function Dashboard({ user, onLogout }) {
   };
 
   const openEdit = (ej) => {
+    if (!isAdmin) return;
     setForm({
       ...ej,
       musculos: Array.isArray(ej.musculos) ? ej.musculos.join(', ') : ej.musculos || '',
@@ -91,6 +107,7 @@ export default function Dashboard({ user, onLogout }) {
   // ── Save ──
   const handleSave = async (e) => {
     e.preventDefault();
+    if (!isAdmin) return;
     setModalError('');
     setSaving(true);
 
@@ -135,6 +152,7 @@ export default function Dashboard({ user, onLogout }) {
 
   // ── Delete ──
   const confirmDelete = async () => {
+    if (!isAdmin) return;
     setDeleting(true);
     const { error } = await supabase.from('ejercicios').delete().eq('id', deleteId);
     setDeleting(false);
@@ -161,6 +179,9 @@ export default function Dashboard({ user, onLogout }) {
     );
   }
 
+  const selectedWeekObj = semanas.find((s) => s.id === activeWeek);
+  const isWeekLocked = !isAdmin && selectedWeekObj && selectedWeekObj.orden !== currentWeekOrden;
+
   return (
     <div className="dashboard">
       {/* ── Sidebar ── */}
@@ -172,20 +193,28 @@ export default function Dashboard({ user, onLogout }) {
 
         <nav className="dash-sidebar-nav">
           <p className="dash-sidebar-label">SEMANAS</p>
-          {semanas.map((sem) => (
-            <button
-              key={sem.id}
-              type="button"
-              className={`dash-sidebar-item ${activeWeek === sem.id ? 'active' : ''}`}
-              onClick={() => setActiveWeek(sem.id)}
-            >
-              <span className="dash-sem-num">{sem.orden}</span>
-              <span className="dash-sem-name">
-                {sem.titulo.replace(/Semana \d+ — /, '')}
-              </span>
-              <span className="dash-sem-badge">{ejerciciosDeSemana(sem.id).length}</span>
-            </button>
-          ))}
+          {semanas.map((sem) => {
+            const isSemLocked = !isAdmin && sem.orden !== currentWeekOrden;
+            return (
+              <button
+                key={sem.id}
+                type="button"
+                className={`dash-sidebar-item ${activeWeek === sem.id ? 'active' : ''} ${isSemLocked ? 'locked' : ''}`}
+                onClick={() => setActiveWeek(sem.id)}
+                aria-disabled={isSemLocked}
+              >
+                <span className="dash-sem-num">
+                  {isSemLocked ? '🔒' : sem.orden}
+                </span>
+                <span className="dash-sem-name">
+                  {sem.titulo.replace(/Semana \d+ — /, '')}
+                </span>
+                <span className="dash-sem-badge">
+                  {isSemLocked ? 'Bloqueada' : ejerciciosDeSemana(sem.id).length}
+                </span>
+              </button>
+            );
+          })}
         </nav>
 
         <div className="dash-sidebar-footer">
@@ -205,106 +234,133 @@ export default function Dashboard({ user, onLogout }) {
         {/* Header */}
         <header className="dash-header">
           <div>
-            <h1 className="dash-page-title">Panel de Ejercicios</h1>
+            <h1 className="dash-page-title">
+              {isAdmin ? 'Panel de Control (Admin)' : 'Mis Entrenamientos'}
+            </h1>
             <p className="dash-page-sub">
-              {activeWeek
-                ? semanas.find((s) => s.id === activeWeek)?.titulo
-                : 'Seleccioná una semana'}
+              {selectedWeekObj ? selectedWeekObj.titulo : 'Seleccioná una semana'}
             </p>
           </div>
-          <button
-            type="button"
-            className="dash-add-btn"
-            onClick={openCreate}
-            id="dashboard-add-exercise-btn"
-          >
-            + Nuevo Ejercicio
-          </button>
+          {isAdmin && (
+            <button
+              type="button"
+              className="dash-add-btn"
+              onClick={openCreate}
+              id="dashboard-add-exercise-btn"
+            >
+              + Nuevo Ejercicio
+            </button>
+          )}
         </header>
 
-        {/* Stats bar */}
-        <div className="dash-stats-bar">
-          <div className="dash-stat">
-            <span className="dash-stat-num">{ejercicios.length}</span>
-            <span className="dash-stat-label">Total ejercicios</span>
-          </div>
-          <div className="dash-stat">
-            <span className="dash-stat-num">{semanas.length}</span>
-            <span className="dash-stat-label">Semanas</span>
-          </div>
-          <div className="dash-stat">
-            <span className="dash-stat-num">
-              {ejercicios.filter((e) => e.es_destacado).length}
-            </span>
-            <span className="dash-stat-label">En Landing Page</span>
-          </div>
-        </div>
-
-        {/* Exercise grid */}
-        <div className="dash-exercises-grid">
-          {ejerciciosDeSemana(activeWeek).length === 0 ? (
-            <div className="dash-empty">
-              <span>🏋️</span>
-              <p>No hay ejercicios en esta semana todavía.</p>
-              <button type="button" className="dash-add-btn-sm" onClick={openCreate}>
-                + Agregar ejercicio
-              </button>
+        {/* Stats bar (Admin only) */}
+        {isAdmin && (
+          <div className="dash-stats-bar">
+            <div className="dash-stat">
+              <span className="dash-stat-num">{ejercicios.length}</span>
+              <span className="dash-stat-label">Total ejercicios</span>
             </div>
-          ) : (
-            ejerciciosDeSemana(activeWeek).map((ej) => (
-              <div key={ej.id} className="dash-exercise-card">
-                {ej.es_destacado && (
-                  <span className="dash-featured-badge">⭐ Landing</span>
+            <div className="dash-stat">
+              <span className="dash-stat-num">{semanas.length}</span>
+              <span className="dash-stat-label">Semanas</span>
+            </div>
+            <div className="dash-stat">
+              <span className="dash-stat-num">
+                {ejercicios.filter((e) => e.es_destacado).length}
+              </span>
+              <span className="dash-stat-label">En Landing Page</span>
+            </div>
+          </div>
+        )}
+
+        {/* Locked week view for client */}
+        {isWeekLocked ? (
+          <div className="dash-empty dash-locked-week">
+            <span>🔒</span>
+            <h2>Semana Bloqueada</h2>
+            <p>
+              Esta semana estará disponible de forma automática a partir del día{' '}
+              <strong>{getWeekStartDay(selectedWeekObj.orden)} del mes</strong>.
+            </p>
+            <p className="dash-locked-tip">
+              Actualmente estás en la semana {currentWeekOrden} del mes.
+            </p>
+          </div>
+        ) : (
+          /* Exercise grid */
+          <div className="dash-exercises-grid">
+            {ejerciciosDeSemana(activeWeek).length === 0 ? (
+              <div className="dash-empty">
+                <span>🏋️</span>
+                <p>No hay ejercicios en esta semana todavía.</p>
+                {isAdmin && (
+                  <button type="button" className="dash-add-btn-sm" onClick={openCreate}>
+                    + Agregar ejercicio
+                  </button>
                 )}
-                <div className="dash-ex-img-wrap">
-                  <img
-                    src={ej.imagen}
-                    alt={ej.nombre}
-                    className="dash-ex-img"
-                    onError={(e) => { e.target.src = '/assets/images/squat.png'; }}
-                  />
-                  <span className={`ejercicio-badge ${getDifficultyClass(ej.dificultad)}`}>
-                    {ej.dificultad}
-                  </span>
-                </div>
-                <div className="dash-ex-body">
-                  <h3 className="dash-ex-name">{ej.nombre}</h3>
-                  <p className="dash-ex-desc">{ej.descripcion?.slice(0, 80)}...</p>
-                  <div className="dash-ex-chips">
-                    <span className="set-chip">{ej.series} series</span>
-                    <span className="set-chip">{ej.repeticiones} reps</span>
-                    <span className="set-chip">⏱ {ej.duracion}</span>
-                  </div>
-                  {Array.isArray(ej.musculos) && ej.musculos.length > 0 && (
-                    <div className="dash-ex-muscles">
-                      {ej.musculos.map((m) => (
-                        <span key={m} className="dash-muscle-tag">{m}</span>
-                      ))}
-                    </div>
-                  )}
-                  <div className="dash-ex-actions">
-                    <button
-                      type="button"
-                      className="dash-edit-btn"
-                      onClick={() => openEdit(ej)}
-                      aria-label={`Editar ${ej.nombre}`}
-                    >
-                      ✏ Editar
-                    </button>
-                    <button
-                      type="button"
-                      className="dash-delete-btn"
-                      onClick={() => setDeleteId(ej.id)}
-                      aria-label={`Eliminar ${ej.nombre}`}
-                    >
-                      🗑 Eliminar
-                    </button>
-                  </div>
-                </div>
               </div>
-            ))
-          )}
-        </div>
+            ) : (
+              ejerciciosDeSemana(activeWeek).map((ej) => (
+                <div key={ej.id} className="dash-exercise-card">
+                  {isAdmin && ej.es_destacado && (
+                    <span className="dash-featured-badge">⭐ Landing</span>
+                  )}
+                  <div className="dash-ex-img-wrap">
+                    <img
+                      src={ej.imagen}
+                      alt={ej.nombre}
+                      className="dash-ex-img"
+                      onError={(e) => {
+                        e.target.src = '/assets/images/squat.png';
+                      }}
+                    />
+                    <span className={`ejercicio-badge ${getDifficultyClass(ej.dificultad)}`}>
+                      {ej.dificultad}
+                    </span>
+                  </div>
+                  <div className="dash-ex-body">
+                    <h3 className="dash-ex-name">{ej.nombre}</h3>
+                    <p className="dash-ex-desc">{ej.descripcion?.slice(0, 80)}...</p>
+                    <div className="dash-ex-chips">
+                      <span className="set-chip">{ej.series} series</span>
+                      <span className="set-chip">{ej.repeticiones} reps</span>
+                      <span className="set-chip">⏱ {ej.duracion}</span>
+                    </div>
+                    {Array.isArray(ej.musculos) && ej.musculos.length > 0 && (
+                      <div className="dash-ex-muscles">
+                        {ej.musculos.map((m) => (
+                          <span key={m} className="dash-muscle-tag">
+                            {m}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {isAdmin && (
+                      <div className="dash-ex-actions">
+                        <button
+                          type="button"
+                          className="dash-edit-btn"
+                          onClick={() => openEdit(ej)}
+                          aria-label={`Editar ${ej.nombre}`}
+                        >
+                          ✏ Editar
+                        </button>
+                        <button
+                          type="button"
+                          className="dash-delete-btn"
+                          onClick={() => setDeleteId(ej.id)}
+                          aria-label={`Eliminar ${ej.nombre}`}
+                        >
+                          🗑 Eliminar
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
       </main>
 
       {/* ── Modal: Create / Edit ── */}
