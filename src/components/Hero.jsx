@@ -24,7 +24,6 @@ export default function Hero({ trainer, t }) {
 
         <div className="hero-actions">
           <a href="#planes" className="btn-primary">{t.hero_cta_primary}</a>
-          <a href="#sobre-mi" className="btn-secondary">{t.hero_cta_secondary}</a>
         </div>
 
         <div className="hero-stats" role="list" aria-label={t.hero_stats_label}>

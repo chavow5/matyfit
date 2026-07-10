@@ -1,8 +1,17 @@
 export default function Contact({ onSubmit, t }) {
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit();
-    event.target.reset();
+
+    const formData = new FormData(event.currentTarget);
+    const payload = {
+      nombre: formData.get('nombre')?.toString().trim() || '',
+      email: formData.get('email')?.toString().trim() || '',
+      objetivo: formData.get('objetivo')?.toString().trim() || '',
+      mensaje: formData.get('mensaje')?.toString().trim() || '',
+    };
+
+    onSubmit(payload);
+    event.currentTarget.reset();
   };
 
   return (
@@ -20,14 +29,14 @@ export default function Contact({ onSubmit, t }) {
 
           <div className="social-links" role="list">
             <a
-              href="https://instagram.com/matifit"
+              href="https://www.instagram.com/brizuelamatias_/"
               className="social-link"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram de Matifit"
+              aria-label="Instagram de Matías Brizuela"
             >
               <span className="social-icon">📸</span>
-              <span>@matifit en Instagram</span>
+              <span>@brizuelamatias_ en Instagram</span>
               <span style={{ marginLeft: 'auto', color: 'var(--clr-text-dim)', fontSize: '0.8rem' }}>→</span>
             </a>
             <a

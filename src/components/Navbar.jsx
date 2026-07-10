@@ -1,9 +1,19 @@
-export default function Navbar({ activeSection, isSidebarOpen, onOpenSidebar, language, onLanguageChange, t }) {
+export default function Navbar({
+  activeSection,
+  isSidebarOpen,
+  onOpenSidebar,
+  language,
+  onLanguageChange,
+  t,
+  onLoginClick,
+  isLoggedIn,
+  onDashboardClick,
+}) {
   const links = [
-    { id: 'inicio', label: t.nav_inicio },
-    { id: 'sobre-mi', label: t.nav_sobre },
-    { id: 'planes', label: t.nav_planes },
-    { id: 'contacto', label: t.nav_contacto }
+    { id: 'inicio',     label: t.nav_inicio },
+    { id: 'sobre-mi',  label: t.nav_sobre },
+    { id: 'planes',    label: t.nav_planes },
+    { id: 'contacto',  label: t.nav_contacto },
   ];
 
   return (
@@ -29,17 +39,45 @@ export default function Navbar({ activeSection, isSidebarOpen, onOpenSidebar, la
 
       <div className="navbar-right-wrap">
         <div className="lang-switcher" role="group" aria-label={t.lang_label}>
-          <button type="button" className={`lang-btn ${language === 'es' ? 'active' : ''}`} onClick={() => onLanguageChange('es')} aria-pressed={language === 'es'}>
+          <button
+            type="button"
+            className={`lang-btn ${language === 'es' ? 'active' : ''}`}
+            onClick={() => onLanguageChange('es')}
+            aria-pressed={language === 'es'}
+          >
             ES
           </button>
-          <button type="button" className={`lang-btn ${language === 'en' ? 'active' : ''}`} onClick={() => onLanguageChange('en')} aria-pressed={language === 'en'}>
+          <button
+            type="button"
+            className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+            onClick={() => onLanguageChange('en')}
+            aria-pressed={language === 'en'}
+          >
             EN
           </button>
         </div>
 
-        <a href="#contacto" className="navbar-cta">
-          {t.nav_cta}
-        </a>
+        {isLoggedIn ? (
+          <button
+            type="button"
+            className="navbar-cta navbar-dashboard-btn"
+            onClick={onDashboardClick}
+            id="navbar-dashboard-btn"
+            aria-label="Ir al Dashboard"
+          >
+            📊 Mi Panel
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="navbar-login-btn"
+            onClick={onLoginClick}
+            id="navbar-login-btn"
+            aria-label="Iniciar sesión"
+          >
+            🔐 Iniciar Sesión
+          </button>
+        )}
       </div>
 
       <button

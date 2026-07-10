@@ -12,7 +12,17 @@ export default function Footer({ t }) {
         </span>
       </div>
       <p className="footer-copy">{t.footer_copy}</p>
-      <p className="footer-copy">{t.footer_by}</p>
+      <p className="footer-copy">
+        {t.footer_by}{' '}
+        <a
+          href="https://www.instagram.com/davidramirez_651/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'inherit', textDecoration: 'underline' }}
+        >
+          @davidramirez_651
+        </a>
+      </p>
     </footer>
   );
 }

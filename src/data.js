@@ -333,7 +333,7 @@ export const translations = {
     about_title: '¿Quién soy?',
     about_subtitle: 'El entrenador que te acompaña en cada paso del camino',
     about_badge: 'Años de exp.',
-    about_greeting: 'Hola, soy Matías',
+    about_greeting: 'Hola, soy Matías Brizuela',
     plans_tag: 'Contenido',
     plans_title: 'Planes de Entrenamiento',
     plans_subtitle: 'Programas diseñados para todos los niveles, organizados semana a semana.',
@@ -368,7 +368,7 @@ export const translations = {
     sidebar_week: 'Semana',
     aria_open_menu: 'Abrir menú de navegación',
     footer_copy: '© 2026 Matifit. Todos los derechos reservados.',
-    footer_by: 'Hecho con 💪 por Matías García'
+    footer_by: 'Hecho con 💪 por David Ramírez'
   },
   en: {
     nav_inicio: 'Home',
@@ -388,7 +388,7 @@ export const translations = {
     about_title: 'About me',
     about_subtitle: 'The trainer who guides you every step of the way',
     about_badge: 'Years of exp.',
-    about_greeting: 'Hi, I am Matías',
+    about_greeting: 'Hi, I am Matías Brizuela',
     plans_tag: 'Content',
     plans_title: 'Training Plans',
     plans_subtitle: 'Programs designed for every level, organized week by week.',
@@ -423,7 +423,7 @@ export const translations = {
     sidebar_week: 'Week',
     aria_open_menu: 'Open navigation menu',
     footer_copy: '© 2026 Matifit. All rights reserved.',
-    footer_by: 'Made with 💪 by Matías García'
+    footer_by: 'Made with 💪 by David Ramírez'
   }
 };
 
