@@ -1,10 +1,19 @@
+const isVideoUrl = (url) => {
+  if (!url) return false;
+  return url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogg') || url.includes('video');
+};
+
 export default function Modal({ ejercicio, onClose, t }) {
   if (!ejercicio) return null;
 
   return (
     <div className="modal-overlay open" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={onClose}>
       <div className="modal" role="document" onClick={(event) => event.stopPropagation()}>
-        <img src={ejercicio.imagen} alt={ejercicio.nombre} className="modal-img" />
+        {isVideoUrl(ejercicio.imagen) ? (
+          <video src={ejercicio.imagen} autoPlay loop muted playsInline className="modal-img" />
+        ) : (
+          <img src={ejercicio.imagen} alt={ejercicio.nombre} className="modal-img" />
+        )}
         <div className="modal-body">
           <div className="modal-header">
             <h3 className="modal-title" id="modal-title">{ejercicio.nombre}</h3>

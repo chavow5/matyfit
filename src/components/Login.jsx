@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
-export default function Login({ onLoginSuccess }) {
+export default function Login({ onLoginSuccess, onBack }) {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading]   = useState(false);
@@ -43,8 +43,8 @@ export default function Login({ onLoginSuccess }) {
             <img src="/assets/images/logo.png" alt="Logo Matifit" className="login-logo" />
           </div>
           <span className="login-brand">MATIFIT</span>
-          <h1 className="login-title">Acceso al Sistema</h1>
-          <p className="login-subtitle">Ingresá tus credenciales para acceder al panel de ejercicios</p>
+          <h1 className="login-title">Acceso</h1>
+          <p className="login-subtitle">Ingresá tus datos para entrar</p>
         </div>
 
         {/* Form */}
@@ -112,7 +112,7 @@ export default function Login({ onLoginSuccess }) {
               <span className="login-spinner" aria-label="Iniciando sesión..." />
             ) : (
               <>
-                <span>Iniciar Sesión</span>
+                <span>Entrar</span>
                 <span className="login-btn-arrow">→</span>
               </>
             )}
@@ -121,9 +121,13 @@ export default function Login({ onLoginSuccess }) {
 
         {/* Footer */}
         <div className="login-footer">
-          <a href="#inicio" className="login-back-link">
-            ← Volver a la Landing Page
-          </a>
+          <button
+            type="button"
+            className="login-back-link"
+            onClick={() => onBack?.()}
+          >
+            ← Volver
+          </button>
         </div>
       </div>
     </div>

@@ -51,6 +51,11 @@ function getDifficultyClass(dificultad) {
   return map[dificultad] || 'badge-intermedio';
 }
 
+const isVideoUrl = (url) => {
+  if (!url) return false;
+  return url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogg') || url.includes('video');
+};
+
 function FeaturedCard({ ejercicio, onOpenModal, t }) {
   return (
     <div
@@ -67,7 +72,11 @@ function FeaturedCard({ ejercicio, onOpenModal, t }) {
       }}
     >
       <div className="ejercicio-img-wrap">
-        <img className="ejercicio-img" src={ejercicio.imagen} alt={ejercicio.nombre} loading="lazy" />
+        {isVideoUrl(ejercicio.imagen) ? (
+          <video className="ejercicio-img" src={ejercicio.imagen} autoPlay loop muted playsInline />
+        ) : (
+          <img className="ejercicio-img" src={ejercicio.imagen} alt={ejercicio.nombre} loading="lazy" />
+        )}
         <div className="ejercicio-overlay" />
         <span className={`ejercicio-badge ${getDifficultyClass(ejercicio.dificultad)}`}>
           {ejercicio.dificultad}
