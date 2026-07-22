@@ -1,7 +1,4 @@
-const isVideoUrl = (url) => {
-  if (!url) return false;
-  return url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogg') || url.includes('video');
-};
+import MediaViewer from './MediaViewer';
 
 export default function Modal({ ejercicio, onClose, t }) {
   if (!ejercicio) return null;
@@ -9,11 +6,7 @@ export default function Modal({ ejercicio, onClose, t }) {
   return (
     <div className="modal-overlay open" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={onClose}>
       <div className="modal" role="document" onClick={(event) => event.stopPropagation()}>
-        {isVideoUrl(ejercicio.imagen) ? (
-          <video src={ejercicio.imagen} autoPlay loop muted playsInline className="modal-img" />
-        ) : (
-          <img src={ejercicio.imagen} alt={ejercicio.nombre} className="modal-img" />
-        )}
+        <MediaViewer url={ejercicio.imagen} alt={ejercicio.nombre} className="modal-img" controls={true} />
         <div className="modal-body">
           <div className="modal-header">
             <h3 className="modal-title" id="modal-title">{ejercicio.nombre}</h3>

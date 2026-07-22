@@ -1,4 +1,4 @@
-export default function Sidebar({ open, semanas, activeSection, onClose, t }) {
+export default function Sidebar({ open, semanas, activeSection, onClose, t, language, onLanguageChange, isLoggedIn, onLoginClick, onDashboardClick }) {
   return (
     <aside className={`sidebar ${open ? 'open' : ''}`} role="complementary" aria-label="Navegación de planes">
       <p className="sidebar-title">{t.sidebar_nav}</p>
@@ -32,6 +32,46 @@ export default function Sidebar({ open, semanas, activeSection, onClose, t }) {
         </a>
       </nav>
       {open && <button className="sidebar-close" type="button" onClick={onClose}>Cerrar</button>}
+      <div className="sidebar-controls">
+        <div className="lang-switcher" role="group" aria-label={t.lang_label}>
+          <button
+            type="button"
+            className={`lang-btn ${language === 'es' ? 'active' : ''}`}
+            onClick={() => onLanguageChange('es')}
+            aria-pressed={language === 'es'}
+          >
+            ES
+          </button>
+          <button
+            type="button"
+            className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+            onClick={() => onLanguageChange('en')}
+            aria-pressed={language === 'en'}
+          >
+            EN
+          </button>
+        </div>
+
+        {isLoggedIn ? (
+          <button
+            type="button"
+            className="sidebar-login-btn sidebar-dashboard-btn"
+            onClick={() => { onDashboardClick(); onClose(); }}
+            aria-label="Ir al Dashboard"
+          >
+            📊 {t.nav_dashboard || 'Mi Panel'}
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="sidebar-login-btn"
+            onClick={() => { onLoginClick(); onClose(); }}
+            aria-label="Iniciar sesión"
+          >
+            🔐 {t.nav_login || 'Iniciar Sesión'}
+          </button>
+        )}
+      </div>
     </aside>
   );
 }

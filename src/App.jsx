@@ -211,6 +211,11 @@ function App() {
         activeSection={activeSection}
         onClose={() => setSidebarOpen(false)}
         t={t}
+        language={language}
+        onLanguageChange={setLanguage}
+        isLoggedIn={!!session}
+        onLoginClick={() => setView('login')}
+        onDashboardClick={() => setView('dashboard')}
       />
 
       <main className="main-content">
