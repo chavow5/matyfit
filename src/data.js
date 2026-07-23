@@ -1,13 +1,13 @@
 const esTrainer = {
   nombre: 'Matías',
-  apellido: 'García',
-  tag: 'Personal Trainer Certificado',
-  descripcion: 'Con más de 5 años de experiencia transformando vidas a través del fitness, diseñando planes personalizados que se adaptan a tus metas y estilo de vida.',
+  apellido: 'Brizuela',
+  tag: 'Personal Trainer',
+  descripcion: 'Con más de 2 años de experiencia transformando vidas a través del fitness, diseñando planes personalizados que se adaptan a tus metas y estilo de vida.',
   descripcion2: 'Mi metodología combina ciencia del ejercicio con motivación real para ayudarte a progresar con consistencia y sin perder el disfrute del proceso.',
   stats: [
-    { numero: '150+', label: 'Clientes Activos' },
-    { numero: '5+', label: 'Años Experiencia' },
-    { numero: '98%', label: 'Satisfacción' }
+    { numero: '20+', label: 'Clientes Activos' },
+    { numero: '2+', label: 'Años Experiencia' },
+    { numero: '98%', label: 'Exitos' }
   ],
   features: [
     { icon: '🎯', titulo: 'Plan Personalizado', desc: 'Adaptado a tus metas' },
@@ -19,14 +19,14 @@ const esTrainer = {
 
 const enTrainer = {
   nombre: 'Matías',
-  apellido: 'García',
-  tag: 'Certified Personal Trainer',
-  descripcion: 'With over 5 years of experience transforming lives through fitness, I design personalized plans that fit your goals and lifestyle.',
+  apellido: 'Brizuela',
+  tag: 'Personal Trainer',
+  descripcion: 'With over 2 years of experience transforming lives through fitness, I design personalized plans that fit your goals and lifestyle.',
   descripcion2: 'My methodology combines exercise science with real motivation so you can progress consistently and enjoy the process.',
   stats: [
-    { numero: '150+', label: 'Active Clients' },
-    { numero: '5+', label: 'Years Experience' },
-    { numero: '98%', label: 'Satisfaction' }
+    { numero: '20+', label: 'Active Clients' },
+    { numero: '2+', label: 'Years Experience' },
+    { numero: '98%', label: 'Exitos' }
   ],
   features: [
     { icon: '🎯', titulo: 'Custom Plan', desc: 'Tailored to your goals' },

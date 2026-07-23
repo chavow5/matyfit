@@ -9,11 +9,11 @@ export default function About({ trainer, t }) {
 
       <div className="about-grid">
         <div className="about-image-wrap">
-          <img src="/assets/images/hero.png" alt="Matías García - Personal Trainer" className="about-image" />
-          <div className="about-badge-float" aria-label="5 años de experiencia">
+          <img src="/assets/images/hero.png" alt="Matías Brizuela - Personal Trainer" className="about-image" />
+          <div className="about-badge-float" aria-label="2+ años de experiencia">
             <span className="about-badge-icon">🏆</span>
             <div className="about-badge-text">
-              <strong>5+</strong>
+              <strong>2+</strong>
               <span>{t.about_badge}</span>
             </div>
           </div>
